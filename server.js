@@ -16,7 +16,6 @@ var port = process.env.PORT || 5000;
 var now = moment();
 var yesterday = moment(now).subtract(1, 'd').format('YYYY-MM-DD');
 var dayLimit = moment(now).add(10, 'd').format('YYYY-MM-DD');
-var thisYear = moment().year();
 var range = moment.range(yesterday, dayLimit);
 
 function sortMethod(array) {
@@ -25,7 +24,8 @@ function sortMethod(array) {
     while (len_control > 0 && changed) {
         changed = false;
         for (let i = 0; i < len_control; i++) {
-            if (array[i].due_on > array[i+1].due_on) {
+            
+            if (parseInt(array[i].due_on) > parseInt(array[i+1].due_on)) {
                 changed = true;
                 var temp = array[i];
             
@@ -80,7 +80,7 @@ router.get('/', cors(), (req, res, next) => {
 
                 taskName.push(assignments[_id].name);
 
-                if(moment(temp_due_on).isAfter(yesterday) && moment(temp_due_on).isSameOrAfter(thisYear)){ //range.contains(moment(temp_due_on)) pra um range específico
+                if(moment(temp_due_on).isAfter(yesterday)){ //range.contains(moment(temp_due_on)) pra um range específico
 
                     due_on[i] = moment(temp_due_on).format('DDD');
                     
