@@ -65,6 +65,7 @@ router.get('/', cors(), (req, res, next) => {
             let projects = [];
             let taskName = [];
             let due_on = [];
+            let completed_by;
 
             for(var id in assignments){
                 ids.push(id);
@@ -73,15 +74,15 @@ router.get('/', cors(), (req, res, next) => {
                 var _id = ids[i].toString();
                 let timeStamp = assignments[_id].due_on;
                 var temp_due_on = moment(timeStamp * 1000).format('YYYY-MM-DD');
-
+                completed_by = assignments[_id].completed_by_id;
                 /* console.log('yesterday:   ' + yesterday);
                 console.log('temp_due_on: ' + temp_due_on);
                 console.log('dayLimit:    ' + dayLimit); */
 
                 taskName.push(assignments[_id].name);
 
-                if(moment(temp_due_on).isAfter(yesterday)){ //range.contains(moment(temp_due_on)) pra um range específico
-
+                //if(moment(temp_due_on).isAfter(yesterday)){ ||| range.contains(moment(temp_due_on)) pra um range específico
+                if(completed_by == null){
                     due_on[i] = moment(temp_due_on).format('DDD');
                     
                     projects.push({
