@@ -71,6 +71,7 @@ class Project extends Component {
                 className="-striped"
                 data={data} 
                 columns={columns}
+                defaultPageSize={11}
             />
         );
     }
